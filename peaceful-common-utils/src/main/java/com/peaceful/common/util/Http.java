@@ -1,8 +1,8 @@
-package com.peaceful.web.util;
+package com.peaceful.common.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.peaceful.common.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +18,6 @@ import java.io.PrintWriter;
  * <h2>常用http对象</h2>
  * <p>需要配置httpContextFilter,可以从线程上下文拿到request和response对象</p>
  *
- * @see com.peaceful.web.util.HttpContextFilter
  */
 public class Http {
 
@@ -177,7 +176,7 @@ public class Http {
      * @param result 返回详细信息
      */
     public static void responseJSON(int code, String result) {
-        responseString(JSON.toJSONString(new Response(code, result)));
+        responseString(JSON.toJSONString(new ResponseFormat(code, result)));
     }
 
     public static void responseJSON(String msg) {

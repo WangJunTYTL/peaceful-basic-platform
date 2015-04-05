@@ -19,9 +19,7 @@
 
     <modules>
         <module>peaceful-parent</module>
-        <module>peaceful-web-parent</module>
         <module>peaceful-common-utils</module>
-        <module>peaceful-web-utils</module>
     </modules>
 
 

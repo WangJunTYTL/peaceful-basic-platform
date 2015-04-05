@@ -1,7 +1,7 @@
 package com.peaceful.common.util.impl;
 
 import com.peaceful.common.util.exception.LoadPropertiesException;
-import com.peaceful.common.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 
 import java.io.FileInputStream;

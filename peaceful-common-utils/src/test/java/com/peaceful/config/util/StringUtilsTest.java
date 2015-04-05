@@ -1,6 +1,5 @@
 package com.peaceful.config.util;
 
-import com.peaceful.common.util.StringUtils;
 import com.peaceful.common.util.Util;
 import org.junit.Test;
 
@@ -9,15 +8,6 @@ import java.util.TreeMap;
 
 public class StringUtilsTest {
 
-    @Test
-    public void testIndexFrom() throws Exception {
-        Util.report(StringUtils.indexFrom("abcd", "dd") + "");
-    }
-
-    @Test
-    public void testContains() throws Exception {
-        Util.report(StringUtils.contains("abcd", "ad") + "");
-    }
 
 
     @Test
