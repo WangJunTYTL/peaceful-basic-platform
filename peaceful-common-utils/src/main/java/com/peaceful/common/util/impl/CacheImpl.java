@@ -12,19 +12,21 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Date 14/10/21.
- * Author WangJun
- * Email wangjuntytl@163.com
+ * This is a local cache implementation based on Google guave
  *
- * 基于Google guava包提供的缓存工具
+ * @author WangJun <wangjuntytl@163.com>
+ * @version 1.0 14/10/21.
+ * @since 1.6
  */
 public class CacheImpl implements Cache {
 
     private final static Logger logger = LoggerFactory.getLogger(Cache.class);
 
+    private final static String EMPTY = "THIS_CACHE_IS_EMPTY";
+
     private LoadingCache loadingCache = null;
 
-    private CacheImpl(){
+    private CacheImpl() {
 
     }
 
@@ -43,28 +45,27 @@ public class CacheImpl implements Cache {
     }
 
 
-    public void put(Object key, Object value) {
-        Util.report(loadingCache);
-        Util.report(key);
-        Util.report(value);
-        if (value == null)
-            return;
-        loadingCache.put(key, value);
-    }
-
-    public Object get(Object key) {
+    @Override
+    public <T> T get(String key, Class<T> requiredType) {
         try {
             if (loadingCache.size() != 0) {
-                if (loadingCache.get(key).equals(CacheImpl.EMPTY)){
+                if ("".equals(loadingCache.get(key))) {
                     return null;
                 }
-                return loadingCache.get(key);
+                return (T) loadingCache.get(key);
             }
         } catch (ExecutionException e) {
             logger.error("get:{}", e);
         }
         return null;
     }
+
+    public void put(Object key, Object value) {
+        if (value == null)
+            return;
+        loadingCache.put(key, value);
+    }
+
 
     public void clear(Object key) {
         loadingCache.invalidate(key);

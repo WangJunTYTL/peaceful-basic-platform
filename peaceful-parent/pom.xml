@@ -27,7 +27,7 @@
 
     <properties>
         <file.encoding>UTF-8</file.encoding>
-        <slf4j.version>1.5.10</slf4j.version>
+        <slf4j.version>1.7.6</slf4j.version>
         <junit.version>4.11</junit.version>
         <guava.version>16.0</guava.version>
         <spring.version>4.1.3.RELEASE</spring.version>
@@ -98,6 +98,15 @@
     </distributionManagement>
 
     <build>
+<!--        <filters>
+            <filter>src/main/filters/${project.environment}.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>-->
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -225,12 +234,12 @@
                 <artifactId>yuicompressor-maven-plugin</artifactId>
                 <version>1.5.0</version>
                 <executions>
-                    <!--<execution>-->
-                    <!--<phase>${assert.compress}</phase>-->
-                    <!--<goals>-->
-                    <!--<goal>compress</goal>-->
-                    <!--</goals>-->
-                    <!--</execution>-->
+                    <execution>
+                    <phase>${assert.compress}</phase>
+                    <goals>
+                    <goal>compress</goal>
+                    </goals>
+                    </execution>
                 </executions>
                 <configuration>
                     <!--<nosuffix>true</nosuffix>-->
@@ -299,13 +308,13 @@
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-web</artifactId>
-                <version>${spring.version}</version>
+                <version>3.2.5.RELEASE</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-config</artifactId>
-                <version>${spring.version}</version>
+                <version>3.2.5.RELEASE</version>
             </dependency>
 
             <!--RESOLVER FREEMARKER-->
@@ -529,7 +538,7 @@
 
     <developers>
         <developer>
-            <name>WangJun(TengLong)</name>
+            <name>WangJun</name>
             <id>jun.wang</id>
             <email>wangjuntytl (AT) 163.com</email>
             <roles>

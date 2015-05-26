@@ -11,24 +11,28 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Date 14/10/21.
- * Author WangJun
- * Email wangjuntytl@163.com
- * <p/>
- * <h2>常用http对象</h2>
- * <p>需要配置httpContextFilter,可以从线程上下文拿到request和response对象</p>
+ * Put servlet context request & response object  in this <code>Http</code> class by the filter {@link HttpContextFilter},
+ * so you need to ensure add the filter into your web app
+ * @see HttpContextFilter
  *
+ * @author WangJun <wangjuntytl@163.com>
+ * @version 1.0 14/10/21.
+ * @since 1.6
  */
 public class Http {
 
 
     /**
-     * 获得HttpServletRequest
+     * obtain HttpServletRequest
      *
      * @return
      */
     public static HttpServletRequest getRequest() {
-        return HttpContext.requestThreadLocal.get();
+        try {
+            return HttpContext.requestThreadLocal.get();
+        } catch (Exception e) {
+            throw new RuntimeException("can't get request context object ,please make sure the filter HttpContextFilter has been added to your web app ");
+        }
     }
 
     static void setRequest(HttpServletRequest request) {
@@ -36,12 +40,16 @@ public class Http {
     }
 
     /**
-     * 获得HttpServletResponse
+     * obtain HttpServletResponse
      *
      * @return
      */
     public static HttpServletResponse getResponse() {
-        return HttpContext.responseThreadLocal.get();
+        try {
+            return HttpContext.responseThreadLocal.get();
+        } catch (Exception e) {
+            throw new RuntimeException("can't get response context object ,please make sure the filter HttpContextFilter has been added to your web app ");
+        }
     }
 
     static void setResponse(HttpServletResponse response) {
@@ -183,7 +191,7 @@ public class Http {
         responseString(msg);
     }
 
-    public static void responseJSON(Object o){
+    public static void responseJSON(Object o) {
         responseString(JSON.toJSONString(o));
     }
 

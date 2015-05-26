@@ -14,10 +14,10 @@ public class CacheTest {
 
     @Before
     public void befor(){
-     cache = CacheImpl.getCache(30 * 60, new CacheCallback() {
+     cache = CacheImpl.getCache(5, new CacheCallback() {
          @Override
          public Object callback() {
-             return "this_cache_is_empty";
+             return "";
          }
      });
     }
@@ -28,19 +28,19 @@ public class CacheTest {
         cache.put("key",null);
         cache.put("key2","value");
         cache.put("key3", new Date());
-        Util.report(cache.get("key"));
+        Util.report("key -> " + cache.get("key", String.class));
         cache.clear("key2");
-        Util.report(cache.get("key"));
-        Util.report(cache.get("key2"));
-        Util.report(cache.get("key3"));
+//        Thread.sleep(8000);
+        Util.report("key2 -> " + cache.get("key2", String.class));
+        Util.report("key3 -> " + cache.get("key3",Date.class));
         cache.clearAll();
-        Util.report(cache.get("key"));
+        Util.report(cache.get("key",String.class));
 
     }
 
     @Test
     public void testGet() throws Exception {
-        Util.report(cache.get("key"));
+        Util.report(cache.get("key",String.class));
     }
 
     @Test

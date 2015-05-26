@@ -1,15 +1,16 @@
 package com.peaceful.common.util;
 
 
-import java.lang.reflect.Array;
 import java.util.Objects;
 
 /**
  * An internal utility class.
  *
- * @author Wang Jun
+ * @author WangJun <wangjuntytl@163.com>
+ * @version 1.0  14/10/21.
+ * @since 1.6
  */
-public class Util {
+public abstract class Util {
 
 
     static final public void report(String msg, Throwable t) {
@@ -37,4 +38,17 @@ public class Util {
     static final public void report(Object object) {
         System.err.println("P_LOG: " + Objects.toString(object, null));
     }
+
+    static final public void enter() {
+        out("");
+    }
+
+    static final public void dashed() {
+        out("-------------------------------");
+    }
+
+    static private void out(String str) {
+        System.err.println(str);
+    }
+
 }

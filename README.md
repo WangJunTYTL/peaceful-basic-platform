@@ -13,8 +13,6 @@
 ### peaceful-common-utils
 #### 一些基础的工具包，比如处理字符串，集合，日期，环境，加密 ...
 >
-    字符串工具类 StringUtils
-    集合处理  CollectionUtils
     日期处理 DateUtils
     加密处理 MD5Utils Base64Utils
     运行环境 EnvironmentUtils
@@ -25,7 +23,7 @@
 #### web项目要用到的一些基本工具类
 >
     配合maven插件使用
-        GlobalApp 项目全局信息，比如获取运行环境，构建版本号
+    Application 项目全局信息，比如获取运行环境，构建版本号
     servlet request response cookie 对象操作类Http
         在同一线程上下文下可以直接通过Http拿到当前的request和response对象，这可以借助于HttpContextFilter过滤器类拦截每次请求并把每次请求信息放入到Http变量中
         所以使用http类之前，需要在web项目中配置拦截器类
