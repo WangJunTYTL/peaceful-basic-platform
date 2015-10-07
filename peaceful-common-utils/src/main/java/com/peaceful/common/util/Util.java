@@ -1,8 +1,6 @@
 package com.peaceful.common.util;
 
 
-import java.util.Objects;
-
 /**
  * An internal utility class.
  *
@@ -36,7 +34,7 @@ public abstract class Util {
     }
 
     static final public void report(Object object) {
-        System.err.println("P_LOG: " + Objects.toString(object, null));
+        System.err.println("P_LOG: " +object.toString());
     }
 
     static final public void enter() {
