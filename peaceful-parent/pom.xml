@@ -195,6 +195,7 @@
                 <version>2.9.1</version>
                 <configuration>
                     <aggregate>true</aggregate>
+		    <encoding>UTF-8</encoding>
                 </configuration>
                 <executions>
                     <execution>
@@ -235,7 +236,7 @@
                     <!--<nosuffix>true</nosuffix>-->
                     <suffix>.${timestamp}</suffix>
                     <force>true</force>
-                    <encoding>utf-8</encoding>
+                    <encoding>UTF-8</encoding>
                     <excludes>
                         <exclude>**/*.pack.js</exclude>
                         <exclude>**/compressed.css</exclude>
@@ -250,7 +251,7 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>8.1.8.v20121106</version>
                 <configuration>
-                    <stopKey>foo</stopKey>
+		            <stopKey>foo</stopKey>
                     <stopPort>${jetty.stop.port}</stopPort>
                     <reload>automatic</reload>
                     <webAppConfig>
