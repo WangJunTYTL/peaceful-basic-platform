@@ -40,6 +40,14 @@
         <jetty.run.port>8888</jetty.run.port>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>repo2</id>
+            <name>repo2</name>
+            <url>http://repo2.maven.org/maven2/</url>
+        </repository>
+    </repositories>
+
     <pluginRepositories>
         <pluginRepository>
             <name>oss.sonatype.org</name>
