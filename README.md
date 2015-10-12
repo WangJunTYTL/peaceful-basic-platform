@@ -1,6 +1,6 @@
 # peaceful-basic-platform
 
-Global parent pom , you can use it in jar or war project as your maven parent pom setting
+A best global parent pom file , you can use it in jar or war project as your maven parent pom setting
  
     <parent>
             <groupId>com.peaceful</groupId>
@@ -14,11 +14,11 @@ Global parent pom , you can use it in jar or war project as your maven parent po
 
 1. project build coding:`UTF-8`
 1. maven repositories:`repo2`
-1. default profiles: `dev`、`test`、`product`. The project has three running env or build env:dev、test、product. you can specify the  environment by :
+1. default profiles: `dev`、`test`、`product`. The pom think project should has three running env or build env:dev、test、product. you can specify the  environment by :
     
     `mvn -Penv[test][product]  compile[deploy][jetty:run]`
       
-Default env is dev,ou can get the env value in pom by ${project.environment} and in Java code by invoke `Application.getRunningMode()`
+The default env is dev, you can get the env value in pom by ${project.environment} and in Java code by invoke `Application.getRunningMode()`
     
 ### setting build plugin
 
@@ -34,23 +34,25 @@ Default env is dev,ou can get the env value in pom by ${project.environment} and
 1. yuicompressor-maven-plugin:1.5.0  desc:compress style file: .js .css
 1. jetty-maven-plugin:8.1.8.v20121106 desc: start web project in jetty, default port 8888，you can change web port in your pom to override Settings
  
- 
+ ```
     <properties>        
         <jetty.stop.port>9999</jetty.stop.port>
         <jetty.run.port>8888</jetty.run.port>
     </properties>
+```    
     
 ### setting dependencies    
 
-log:slf4j log4j perf4j
-test：junit
-common tools:guava、commons-lang3、httpclient
-json：fastjson
-web：jstl、javaee-api
-db:mysql、c3p0
-framework:spring、springMvc、mybatis
+1. log:slf4j log4j perf4j
+1. test：junit
+1. common tools:guava、commons-lang3、httpclient
+1. json：fastjson
+1. web：jstl、javaee-api
+1. db:mysql、c3p0
+1. framework:spring、springMvc、mybatis
 
 ## peaceful-common-utils
+
 
 配合 parent pom 配置文件，可以读取构建的基本信息，比如构建时间、版本号、项目运行环境
 
