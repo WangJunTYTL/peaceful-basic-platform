@@ -26,12 +26,12 @@
     </organization>
 
     <properties>
+        <!-- project build encoding-->
         <file.encoding>UTF-8</file.encoding>
         <slf4j.version>1.7.6</slf4j.version>
         <junit.version>4.11</junit.version>
         <guava.version>16.0</guava.version>
         <spring.version>4.1.3.RELEASE</spring.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.environment>dev</project.environment>
         <buildtimestamp>${timestamp}</buildtimestamp>
         <project.environment>dev</project.environment>
@@ -92,18 +92,17 @@
         </snapshotRepository>
     </distributionManagement>-->
 
-   
 
     <build>
-<!--        <filters>
-            <filter>src/main/filters/${project.environment}.properties</filter>
-        </filters>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>-->
+        <!--        <filters>
+                    <filter>src/main/filters/${project.environment}.properties</filter>
+                </filters>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>-->
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -127,7 +126,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.1</version>
+                <version>2.6</version>
                 <configuration>
                     <archive>
                         <addMavenDescriptor>true</addMavenDescriptor>
@@ -145,13 +144,13 @@
                 <inherited>true</inherited>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.3</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
                     <optimize>true</optimize>
                     <debug>true</debug>
-                    <encoding>UTF-8</encoding>
+                    <encoding>${file.encoding}</encoding>
                 </configuration>
             </plugin>
             <plugin>
@@ -174,7 +173,7 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.7</version>
                 <configuration>
-                    <encoding>UTF-8</encoding>
+                    <encoding>${file.encoding}</encoding>
                 </configuration>
             </plugin>
 
@@ -191,7 +190,8 @@
                         <id>attach-source</id>
                         <phase>deploy</phase>
                         <goals>
-                            <goal>jar-no-fork</goal>
+                            <goal>jar</goal>
+                            <!--<goal>jar-no-fork</goal>-->
                         </goals>
                     </execution>
                 </executions>
@@ -203,7 +203,7 @@
                 <version>2.9.1</version>
                 <configuration>
                     <aggregate>true</aggregate>
-		    <encoding>UTF-8</encoding>
+                    <encoding>${file.encoding}</encoding>
                 </configuration>
                 <executions>
                     <execution>
@@ -234,17 +234,17 @@
                 <version>1.5.0</version>
                 <executions>
                     <execution>
-                    <phase>${assert.compress}</phase>
-                    <goals>
-                    <goal>compress</goal>
-                    </goals>
+                        <phase>${assert.compress}</phase>
+                        <goals>
+                            <goal>compress</goal>
+                        </goals>
                     </execution>
                 </executions>
                 <configuration>
                     <!--<nosuffix>true</nosuffix>-->
                     <suffix>.${timestamp}</suffix>
                     <force>true</force>
-                    <encoding>UTF-8</encoding>
+                    <encoding>${file.encoding}</encoding>
                     <excludes>
                         <exclude>**/*.pack.js</exclude>
                         <exclude>**/compressed.css</exclude>
@@ -259,7 +259,7 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>8.1.8.v20121106</version>
                 <configuration>
-		            <stopKey>foo</stopKey>
+                    <stopKey>foo</stopKey>
                     <stopPort>${jetty.stop.port}</stopPort>
                     <reload>automatic</reload>
                     <webAppConfig>

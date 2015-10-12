@@ -8,7 +8,6 @@
         <groupId>com.peaceful</groupId>
         <artifactId>peaceful-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-
     </parent>
 
     <groupId>com.peaceful</groupId>
