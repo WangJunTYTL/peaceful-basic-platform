@@ -1,7 +1,6 @@
 package com.peaceful.common.util;
 
 /**
- * <a mailto:wangjuntytl@163.com>Email:wangjuntytl@163.com</a>
  *
  * @author wangjun
  * @version 1.0

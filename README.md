@@ -53,7 +53,39 @@ The default env is dev, you can get the env value in pom by ${project.environmen
 
 ## peaceful-common-utils
 
+Cooperate with the parent pom configuration files, can read building basic information, such as building time, version number, running environment of the project
 
-配合 parent pom 配置文件，可以读取构建的基本信息，比如构建时间、版本号、项目运行环境
+The parent pom define 3 kinds of profile：`dev`、`test`、`product`。If your project use the pom as parent pom,you need add `peaceful-common-utils` dependency in your pom file.
 
+    <dependency>
+        <groupId>com.peaceful</groupId>
+        <artifactId>peaceful-common-utils</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
+
+The `peaceful-common-utils` will read your build info into application.properties.
+    
+### get build version
+
+```
+Application.getVersion()
+```
+
+### get running mode
+```
+Application.getRunningMode()
+...
+Application.isTest()
+Application.isProduct()
+Application.isDev() 
+```
+
+### get Running time
+```
+# you need invoke Application.loadToJVM() when your application start
+Application.getRunningTime()
+```
+
+
+ 
 

@@ -6,11 +6,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * Obtain information on the program is running environment
- * @see RunningMode
+ * Cooperate with the parent pom configuration files, can read building basic information, such as building time, version number, running environment of the project
  *
  * @author WangJun <wangjuntytl@163.com>
  * @version 1.0  14/10/21.
+ * @see RunningMode
  * @since 1.6
  */
 public class Application {
