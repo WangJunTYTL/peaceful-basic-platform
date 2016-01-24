@@ -38,6 +38,7 @@
         <assert.compress>deploy</assert.compress>
         <jetty.stop.port>9999</jetty.stop.port>
         <jetty.run.port>8888</jetty.run.port>
+        <main.class>8888</main.class>
     </properties>
 
     <repositories>
@@ -118,6 +119,7 @@
                 </executions>
                 <configuration>
                     <format>{0,date,yyyy-MM-dd HH:mm:ss}</format>
+                    <timestampFormat>yyyyMMddHHmmss</timestampFormat>
                     <items>
                         <item>timestamp</item>
                     </items>
@@ -283,6 +285,36 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <!-- not append assembly id in release file name -->
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <!--<descriptors>
+                        <descriptor>src/main/assembly/package.xml</descriptor>
+                    </descriptors>-->
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>${main.class}</mainClass>
+                        </manifest>
+                        <manifestEntries>
+                            <Implementation-Build>${timestamp}</Implementation-Build>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <finalName>${project.artifactId}-${project.version}-r${timestamp}</finalName>
     </build>

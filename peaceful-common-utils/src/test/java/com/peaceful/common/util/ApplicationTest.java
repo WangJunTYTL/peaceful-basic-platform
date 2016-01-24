@@ -10,6 +10,6 @@ public class ApplicationTest {
 
     @Test
     public void testToString() throws Exception {
-        Util.report(Application.out());
+        Util.report(Application.reportRunningInfo());
     }
 }

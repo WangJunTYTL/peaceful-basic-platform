@@ -17,20 +17,21 @@ public class CacheTest {
      cache = CacheImpl.getCache(5, new CacheCallback() {
          @Override
          public Object callback() {
-             return "";
+             return "8";
          }
      });
     }
 
     @Test
     public void testPut() throws Exception {
-        cache.put("key","value");
+        cache.put("key asd","value");
         cache.put("key",null);
         cache.put("key2","value");
         cache.put("key3", new Date());
-        Util.report("key -> " + cache.get("key", String.class));
-        cache.clear("key2");
-//        Thread.sleep(8000);
+        Util.report("key -> " + cache.get("key asd", String.class));
+//        cache.clear("key2");
+        Thread.sleep(8000);
+        Util.report(cache.get("key",String.class));
         Util.report("key2 -> " + cache.get("key2", String.class));
         Util.report("key3 -> " + cache.get("key3",Date.class));
         cache.clearAll();
@@ -41,6 +42,7 @@ public class CacheTest {
     @Test
     public void testGet() throws Exception {
         Util.report(cache.get("key",String.class));
+        Util.report(cache.get("key8",String.class));
     }
 
     @Test

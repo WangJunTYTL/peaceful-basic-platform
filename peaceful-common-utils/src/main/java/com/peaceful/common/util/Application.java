@@ -90,7 +90,7 @@ public class Application {
         return appConfigs.getString("build.version");
     }
 
-    public static String out() {
+    public static String reportRunningInfo() {
         StringBuffer buffer = new StringBuffer();
         buffer.append("[{");
         buffer.append("\"");
@@ -120,5 +120,10 @@ public class Application {
         buffer.append(getBuildVersion());
         buffer.append("}]");
         return buffer.toString();
+    }
+
+    @Deprecated
+    public static String out(){
+        return reportRunningInfo();
     }
 }

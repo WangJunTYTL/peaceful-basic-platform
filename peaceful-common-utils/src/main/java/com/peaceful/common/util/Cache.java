@@ -1,6 +1,8 @@
 package com.peaceful.common.util;
 
 /**
+ * local cache
+ * <p/>
  * Date 14/10/21.
  * Author WangJun
  * Email wangjuntytl@163.com
@@ -8,7 +10,7 @@ package com.peaceful.common.util;
 public interface Cache {
 
 
-    <T> T get(String key,Class<T> requiredType);
+    <T> T get(String key, Class<T> requiredType);
 
     void put(Object key, Object value);
 
