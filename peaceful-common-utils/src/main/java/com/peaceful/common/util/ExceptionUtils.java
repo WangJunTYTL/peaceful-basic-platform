@@ -3,6 +3,8 @@ package com.peaceful.common.util;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.UndeclaredThrowableException;
 
 /**
  * @author WangJun <wangjuntytl@163.com>
@@ -19,12 +21,13 @@ public class ExceptionUtils {
      * @return Full StackTrace
      */
     public static String getStackTrace(Exception e) {
+        Throwable throwable = e;
         StringWriter sw = null;
         PrintWriter pw = null;
         try {
             sw = new StringWriter();
             pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
+            unwrapThrowable(throwable).printStackTrace(pw);
             pw.flush();
             sw.flush();
         } finally {
@@ -40,5 +43,19 @@ public class ExceptionUtils {
             }
         }
         return sw.toString();
+    }
+
+
+    public static Throwable unwrapThrowable(Throwable wrapped) {
+        Throwable unwrapped = wrapped;
+        while (true) {
+            if (unwrapped instanceof InvocationTargetException) {
+                unwrapped = ((InvocationTargetException) unwrapped).getTargetException();
+            } else if (unwrapped instanceof UndeclaredThrowableException) {
+                unwrapped = ((UndeclaredThrowableException) unwrapped).getUndeclaredThrowable();
+            } else {
+                return unwrapped;
+            }
+        }
     }
 }

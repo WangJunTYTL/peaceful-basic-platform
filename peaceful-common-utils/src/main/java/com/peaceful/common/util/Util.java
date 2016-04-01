@@ -1,6 +1,9 @@
 package com.peaceful.common.util;
 
 
+import java.lang.reflect.Array;
+import java.util.Date;
+
 /**
  * An internal utility class.
  *
@@ -16,6 +19,8 @@ public abstract class Util {
         System.err.println("Reported exception:");
         t.printStackTrace();
     }
+
+    private static final String prefix = "P_LOG:";
 
     static final public void report(String msg) {
         System.err.println("P_LOG: " + msg);
@@ -34,7 +39,23 @@ public abstract class Util {
     }
 
     static final public void report(Object object) {
-        System.err.println("P_LOG: " +object.toString());
+        if (object.getClass().isArray()) {
+            StringBuffer buffer = new StringBuffer();
+            buffer.append("Array:[");
+            int length = Array.getLength(object);
+            for (int i = 0; i < length; i++) {
+                buffer.append(Array.get(object, i));
+                if (i == length - 1) {
+                    // pass
+                } else {
+                    buffer.append(",");
+                }
+            }
+            buffer.append("]");
+            out(buffer.toString());
+        } else {
+            out(object.toString());
+        }
     }
 
     static final public void enter() {
@@ -46,7 +67,8 @@ public abstract class Util {
     }
 
     static private void out(String str) {
-        System.err.println(str);
+        System.err.println(prefix+DateUtils.formatDateTime(new Date())+" "+str);
     }
+
 
 }
