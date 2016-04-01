@@ -19,18 +19,6 @@
     <properties>
     </properties>
 
-    <distributionManagement>
-        <repository>
-            <id>deployment_release</id>
-            <name>edaijia nexus center</name>
-            <url>http://115.29.11.157:8081/nexus/content/groups/public</url>
-        </repository>
-        <snapshotRepository>
-            <id>deployment</id>
-            <name>edaijia nexus center</name>
-            <url>http://115.29.11.157:8081/nexus/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <build>
         <filters>
