@@ -13,10 +13,10 @@ import java.io.PrintWriter;
 /**
  * Put servlet context request & response object  in this <code>Http</code> class by the filter {@link HttpContextFilter},
  * so you need to ensure add the filter into your web app
- * @see HttpContextFilter
  *
  * @author WangJun <wangjuntytl@163.com>
  * @version 1.0 14/10/21.
+ * @see HttpContextFilter
  * @since 1.6
  */
 public class Http {
@@ -195,6 +195,13 @@ public class Http {
         responseString(JSON.toJSONString(o));
     }
 
+    public static void responseJSON(int code, Object data) {
+        responseString(JSON.toJSONString(new ResponseFormat(code, data)));
+    }
+
+    public static void responseJSON(int code, String message, Object data) {
+        responseString(JSON.toJSONString(new ResponseFormat(code, message, data)));
+    }
 
     public static void responseJSON(JSONObject jsonObject) {
         responseString(jsonObject.toJSONString());
