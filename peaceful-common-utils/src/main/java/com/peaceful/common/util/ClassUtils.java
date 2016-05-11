@@ -9,7 +9,7 @@ public class ClassUtils {
 
     public static <T> T newInstance(String zClassName) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         return (T) getDefaultClassLoader().loadClass(zClassName).newInstance();
-    }""
+    }
 
     public static ClassLoader getDefaultClassLoader() {
         ClassLoader cl = null;
