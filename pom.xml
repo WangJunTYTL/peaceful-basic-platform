@@ -20,6 +20,9 @@
     <modules>
         <module>peaceful-parent</module>
         <module>peaceful-common-utils</module>
+        <module>peaceful-boot-parent</module>
+        <module>peaceful-boot</module>
+        <module>peaceful-spring-boot</module>
     </modules>
 
 
