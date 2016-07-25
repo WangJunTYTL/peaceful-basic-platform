@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.peaceful</groupId>
+        <artifactId>peaceful-boot-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.peaceful</groupId>
+    <artifactId>peaceful-boot-web-template</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <description>
+        该项目为模板项目,依赖peaceful web boot 快速搭建spring boot web项目,可以直接copy该项目快速搭建自己的spring boot web项目
+        开发运行:项目可以通过mvn spring:run 或者直接运行spring的main入口方法 或者mvn jetty:run运行
+        项目部署:支持内嵌tomcat jetty插件 和部署到外部容器的方式运行
+    </description>
+
+    <properties>
+        <!--switch 可配置的开关-->
+        <test.skip>true</test.skip>
+        <jetty.port>8889</jetty.port>
+        <jetty.stop.port>10000</jetty.stop.port>
+    </properties>
+
+
+    <build>
+        <plugins>
+            <!-- Package as an executable jar -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.peaceful</groupId>
+            <artifactId>peaceful-boot-web</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!--spring boot 是否需要嵌入tomcat,默认为provided,既不需要,如果打成war包部署到外部容器设置为compile-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--模板引擎 jsp jstl-->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+
+
+    </dependencies>
+
+
+</project>

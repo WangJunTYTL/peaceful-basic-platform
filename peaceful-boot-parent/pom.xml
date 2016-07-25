@@ -32,24 +32,61 @@
         </developer>
     </developers>
 
-    <repositories>
-        <repository>
-            <id>repo2</id>
-            <name>repo2</name>
-            <url>http://repo2.maven.org/maven2/</url>
-        </repository>
-        <repository>
-            <id>mvnrepository</id>
-            <name>mvnrepository</name>
-            <url>http://mvnrepository.com/artifact</url>
-        </repository>
-    </repositories>
-
     <properties>
-        <project.env>dev</project.env>
+        <!--switch 可配置的开关-->
+        <!--编译时是否跳过测试,默认跳过-->
+        <test.skip>true</test.skip>
+        <!--jetty使用端口-->
+        <jetty.port>8888</jetty.port>
+        <jetty.stop.port>10000</jetty.stop.port>
+
+        <!--spring boot web mybatis jsp-->
+        <spring.boot.version>1.3.6.RELEASE</spring.boot.version>
+        <spring.tomcat.version>8.0.36</spring.tomcat.version>
+        <mybatis.boot.starter>1.1.1</mybatis.boot.starter>
+        <!--注意实际使用中servlet的scope设置为provided,因为Servlet容器中都会含有servlet的api-->
+        <servlet.version>3.1.0</servlet.version>
+
+        <!--工具类-->
+        <common.lang3.version>3.4</common.lang3.version>
+        <common.bean.version>1.9.2</common.bean.version>
+        <guava.version>19.0</guava.version>
+        <fastjson.version>1.2.6</fastjson.version>
+        <config.version>1.2.1</config.version>
+        <java.mail.version>1.5.0-b01</java.mail.version>
+        <perf4j.version>0.9.16</perf4j.version>
+
+        <!--日志组件类-->
+        <slf4j.api.version>1.7.12</slf4j.api.version>
+        <slf4j.log4j12.version>1.7.21</slf4j.log4j12.version>
+        <log4j.version>1.2.17</log4j.version>
+
+        <!--db-->
+        <mysql.version>5.1.38</mysql.version>
+        <sqlite.version>3.8.11.2</sqlite.version>
+        <c3p0.version>0.9.0</c3p0.version>
+
+        <!--test-->
+        <junit.version>4.12</junit.version>
+
+        <!--other-->
+        <guice.version>4.0</guice.version>
     </properties>
 
+
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <!--spring boot web 需要把view层作为resource才可以打包-->
+            <resource>
+                <directory>${basedir}/src/main/webapp</directory>
+                <targetPath>view</targetPath>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <inherited>true</inherited>
@@ -57,12 +94,47 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.6</source>
+                    <target>1.6</target>
                     <optimize>true</optimize>
-                    <debug>true</debug>
                     <encoding>UTF-8</encoding>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <skipTests>${test.skip}</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>8.1.8.v20121106</version>
+                <configuration>
+                    <stopKey>foo</stopKey>
+                    <stopPort>${jetty.stop.port}</stopPort>
+                    <reload>automatic</reload>
+                    <webAppConfig>
+                        <contextPath>/</contextPath>
+                    </webAppConfig>
+                    <connectors>
+                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+                            <port>${jetty.port}</port>
+                            <maxIdleTime>60000</maxIdleTime>
+                        </connector>
+                    </connectors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>stop-jetty</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -70,133 +142,142 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-tomcat</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-jasper</artifactId>
+                <version>${spring.tomcat.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jstl</groupId>
+                <artifactId>jstl</artifactId>
+                <version>1.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.boot.starter}</version>
+            </dependency>
+            <!--以上为spring boot web mybatis jsp-->
+
+            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.4</version>
+                <version>${common.lang3.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>19.0</version>
+                <version>${guava.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
-                <version>1.9.2</version>
+                <version>${common.bean.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.6</version>
+                <version>${fastjson.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.typesafe</groupId>
                 <artifactId>config</artifactId>
-                <version>1.2.1</version>
+                <version>${config.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>javax.mail</groupId>
                 <artifactId>mail</artifactId>
-                <version>1.5.0-b01</version>
+                <version>${java.mail.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.perf4j</groupId>
                 <artifactId>perf4j</artifactId>
-                <version>0.9.16</version>
+                <version>${perf4j.version}</version>
             </dependency>
             <!--以上都是工具类-->
 
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.12</version>
+                <version>${slf4j.api.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.7.21</version>
+                <version>${slf4j.log4j12.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
-                <version>1.2.17</version>
+                <version>${log4j.version}</version>
             </dependency>
-
             <!--以上是日志处理类-->
-
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-                <scope>test</scope>
-                <optional>true</optional>
-            </dependency>
-
-            <!--以上是单元测试类-->
 
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.38</version>
+                <version>${mysql.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.xerial</groupId>
                 <artifactId>sqlite-jdbc</artifactId>
-                <version>3.8.11.2</version>
+                <version>${sqlite.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>c3p0</groupId>
                 <artifactId>c3p0</artifactId>
-                <version>0.9.0</version>
+                <version>${c3p0.version}</version>
             </dependency>
-
             <!--以上是数据源类库-->
 
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>1.3.5.RELEASE</version>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-thymeleaf</artifactId>
-                <version>1.3.5.RELEASE</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>1.1.1</version>
-            </dependency>
-
-            <!--以上是Spring项目开发依赖：spring+mvc+mybatis-->
 
             <dependency>
                 <groupId>com.google.inject</groupId>
                 <artifactId>guice</artifactId>
-                <version>4.0</version>
+                <version>${guice.version}</version>
             </dependency>
-
             <!--Google DI容器-->
 
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
-                <version>3.1.0</version>
+                <version>${servlet.version}</version>
             </dependency>
             <!-- servlet-->
-
         </dependencies>
     </dependencyManagement>
 

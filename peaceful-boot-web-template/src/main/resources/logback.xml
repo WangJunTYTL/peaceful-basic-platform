@@ -1,0 +1,21 @@
+<!-- lang: xml-->
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{10} [%file:%line] - %msg%n
+            </pattern>
+        </layout>
+    </appender>
+
+    <!-- logback为java中的包 -->
+    <logger name="logback"/>
+    <!--logback.LogbackDemo：类的全路径 -->
+    <logger name="logback.LogbackDemo" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

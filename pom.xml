@@ -22,6 +22,8 @@
         <module>peaceful-common-utils</module>
         <module>peaceful-boot-parent</module>
         <module>peaceful-boot</module>
+        <module>peaceful-boot-web</module>
+        <module>peaceful-boot-web-template</module>
         <module>peaceful-spring-boot</module>
     </modules>
 
