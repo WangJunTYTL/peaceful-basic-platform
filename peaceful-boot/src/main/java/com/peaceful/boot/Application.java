@@ -34,7 +34,7 @@ public class Application {
         }
         String runningEnv = config.getString(ENV_KEY);
         // check running.env state
-        Preconditions.checkState(!(runningEnv.equals("env") || runningEnv.equals("test") || runningEnv.equals("product")), "[running.env=%s] is a illegal state", runningEnv);
+        Preconditions.checkState((runningEnv.equals("env") || runningEnv.equals("test") || runningEnv.equals("product")), "[running.env=%s] is a illegal state", runningEnv);
         Console.log("running.env: %s", runningEnv);
     }
 
