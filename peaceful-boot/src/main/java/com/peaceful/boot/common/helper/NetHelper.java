@@ -13,13 +13,12 @@ import java.net.UnknownHostException;
  */
 public class NetHelper {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(NetHelper.class);
 
     public static String getIp() {
         try {
             return InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
-            LOGGER.error("Error:{} ", e);
+            Throwables.propagate(e);
         }
         return "NULL";
     }
@@ -29,8 +28,7 @@ public class NetHelper {
         try {
             return InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
-            e.printStackTrace();
-            LOGGER.error("Error: {}", e);
+            Throwables.propagate(e);
         }
         return "NULL";
     }
@@ -39,7 +37,7 @@ public class NetHelper {
         try {
             return InetAddress.getByName(ip).isReachable(timeout);
         } catch (IOException e) {
-            LOGGER.error("Error: {}", e);
+            Throwables.propagate(e);
             return false;
         }
     }

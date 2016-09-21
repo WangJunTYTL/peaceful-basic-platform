@@ -1,9 +1,8 @@
 package com.peaceful.boot;
 
 import com.google.common.base.Preconditions;
-import com.peaceful.boot.module.ModuleList;
-import com.peaceful.boot.common.helper.DateHelper;
 import com.peaceful.boot.common.helper.Console;
+import com.peaceful.boot.common.helper.DateHelper;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import org.slf4j.Logger;
@@ -34,8 +33,8 @@ public class Application {
         }
         String runningEnv = config.getString(ENV_KEY);
         // check running.env state
-        Preconditions.checkState((runningEnv.equals("env") || runningEnv.equals("test") || runningEnv.equals("product")), "[running.env=%s] is a illegal state", runningEnv);
-        Console.log("running.env: %s", runningEnv);
+        Preconditions.checkState((runningEnv.equals("dev") || runningEnv.equals("test") || runningEnv.equals("product")), "[running.env=%s] is a illegal state", runningEnv);
+//        Console.log("running.env: %s", runningEnv);
     }
 
     public static void loadToJVM() {

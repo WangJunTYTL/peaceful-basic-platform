@@ -25,7 +25,7 @@ public class FilterDemo implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        logger.info("requert url->{}",request.getRequestURI());
+        logger.info("request url->{}",request.getRequestURI());
         HttpServletResponse response = (HttpServletResponse) servletResponse;
     }
 

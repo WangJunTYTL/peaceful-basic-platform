@@ -83,7 +83,7 @@
             <!--spring boot web 需要把view层作为resource才可以打包-->
             <resource>
                 <directory>${basedir}/src/main/webapp</directory>
-                <targetPath>view</targetPath>
+                <targetPath>META-INF/resources</targetPath>
                 <filtering>false</filtering>
             </resource>
         </resources>

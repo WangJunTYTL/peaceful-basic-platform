@@ -14,21 +14,14 @@ import java.util.ServiceLoader;
  */
 public class SpiHelper {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(SpiHelper.class);
 
     @Deprecated
     public static <T> T search(Class<T> zclass) {
         ServiceLoader<T> res = ServiceLoader.load(zclass);
         Iterator<T> search = res.iterator();
         T instance = null;
-        int n = 0;
         if (search.hasNext()) {
             instance = search.next();
-            LOGGER.info("SPI Find {} -> {}", zclass, instance.getClass().getName());
-            n++;
-        }
-        if (n > 1) {
-            LOGGER.info("find multiple impl for {},active bind impl is {}", zclass, instance.getClass().getName());
         }
         return instance;
     }
@@ -45,7 +38,6 @@ public class SpiHelper {
         if (instances != null && instances.size() == 1) {
             return instances.get(0);
         } else if (instances != null && instances.size() > 1) {
-            LOGGER.warn("find {} has multi implements,actual binding is {}", instances.get(0).getClass().getName());
             return instances.get(0);
         } else {
             return null;
@@ -67,7 +59,6 @@ public class SpiHelper {
         if (search.hasNext()) {
             instance = search.next();
             instances.add(instance);
-            LOGGER.info("SPI: {} -> {}", zclass, instance.getClass().getName());
         }
         return instances;
     }
