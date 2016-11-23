@@ -25,8 +25,19 @@
         <url>http://www.peaceful.com</url>
     </organization>
 
+    <developers>
+        <developer>
+            <name>WangJun</name>
+            <id>jun.wang</id>
+            <email>wangjuntytl (AT) 163.com</email>
+            <roles>
+                <role>Admin</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
     <properties>
-        <!-- project build encoding-->
         <file.encoding>UTF-8</file.encoding>
         <slf4j.version>1.7.6</slf4j.version>
         <junit.version>4.11</junit.version>
@@ -39,9 +50,15 @@
         <jetty.stop.port>9999</jetty.stop.port>
         <jetty.run.port>8888</jetty.run.port>
         <main.class>8888</main.class>
+        <compiler.target>1.6</compiler.target>
     </properties>
 
     <repositories>
+        <repository>
+            <id>aliyun</id>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
         <repository>
             <id>repo2</id>
             <name>repo2</name>
@@ -49,13 +66,7 @@
         </repository>
     </repositories>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <name>oss.sonatype.org</name>
-            <id>oss.sonatype.org</id>
-            <url>http://oss.sonatype.org/content/groups/public</url>
-        </pluginRepository>
-    </pluginRepositories>
+
 
     <profiles>
         <profile>
@@ -106,26 +117,6 @@
                 </resources>-->
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>1.3</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>create-timestamp</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <format>{0,date,yyyy-MM-dd HH:mm:ss}</format>
-                    <timestampFormat>yyyyMMddHHmmss</timestampFormat>
-                    <items>
-                        <item>timestamp</item>
-                    </items>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.6</version>
@@ -148,8 +139,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>${compiler.target}</source>
+                    <target>${compiler.target}</target>
                     <optimize>true</optimize>
                     <debug>true</debug>
                     <encoding>${file.encoding}</encoding>
@@ -184,7 +175,7 @@
                 <artifactId>maven-source-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
-                    <finalName>${artifactId}-of-generated-jar-file</finalName>
+                    <finalName>${project.artifactId}-of-generated-jar-file</finalName>
                     <attach>true</attach>
                 </configuration>
                 <executions>
@@ -256,34 +247,6 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.8.v20121106</version>
-                <configuration>
-                    <stopKey>foo</stopKey>
-                    <stopPort>${jetty.stop.port}</stopPort>
-                    <reload>automatic</reload>
-                    <webAppConfig>
-                        <contextPath>/</contextPath>
-                    </webAppConfig>
-                    <connectors>
-                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                            <port>${jetty.run.port}</port>
-                            <maxIdleTime>60000</maxIdleTime>
-                        </connector>
-                    </connectors>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>stop-jetty</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>stop</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
 
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -316,8 +279,13 @@
                 </executions>
             </plugin>
         </plugins>
+
         <finalName>${project.artifactId}-${project.version}-r${timestamp}</finalName>
     </build>
+
+    <reporting>
+        <outputDirectory>${project.build.directory}/site</outputDirectory>
+    </reporting>
 
     <!--管理jar包版本-->
     <dependencyManagement>
@@ -529,53 +497,38 @@
                 <version>1.6.1</version>
             </dependency>
 
+            <!-- LOGGING DEPENDENCIES - LOG4J -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.16</version>
+            </dependency>
+            <!--  JUNIT DEPENDENCY FOR TESTING -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
-
-    <dependencies>
-
-        <!-- LOGGING DEPENDENCIES - LOG4J -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
-        </dependency>
-        <!--  JUNIT DEPENDENCY FOR TESTING -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
-    </dependencies>
-
-    <developers>
-        <developer>
-            <name>WangJun</name>
-            <id>jun.wang</id>
-            <email>wangjuntytl (AT) 163.com</email>
-            <roles>
-                <role>Admin</role>
-            </roles>
-            <timezone>+8</timezone>
-        </developer>
-    </developers>
 </project>

@@ -5,9 +5,6 @@ echo "该项目是基础依赖项目，有新的项目需要立项时只需依�
 echo "install peaceful-boot-parent pom"
 mvn clean install -f ./peaceful-boot-parent/pom.xml || exit 1
 
-echo "install peaceful-parent"
-mvn clean install -f ./peaceful-parent/pom.xml || exit 1
-
 echo 'install peaceful basic jar'
 mvn clean install -f ./peaceful-boot/pom.xml
 mvn clean install -f ./peaceful-boot-web/pom.xml

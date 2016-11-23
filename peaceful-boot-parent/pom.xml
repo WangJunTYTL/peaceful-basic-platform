@@ -32,13 +32,24 @@
         </developer>
     </developers>
 
+    <repositories>
+        <repository>
+            <id>aliyun</id>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>repo2</id>
+            <name>repo2</name>
+            <url>http://repo2.maven.org/maven2/</url>
+        </repository>
+    </repositories>
+
     <properties>
         <!--switch 可配置的开关-->
         <!--编译时是否跳过测试,默认跳过-->
         <test.skip>true</test.skip>
-        <!--jetty使用端口-->
-        <jetty.port>8888</jetty.port>
-        <jetty.stop.port>10000</jetty.stop.port>
+
 
         <!--spring boot web mybatis jsp-->
         <spring.boot.version>1.3.6.RELEASE</spring.boot.version>
@@ -108,34 +119,7 @@
                     <skipTests>${test.skip}</skipTests>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.8.v20121106</version>
-                <configuration>
-                    <stopKey>foo</stopKey>
-                    <stopPort>${jetty.stop.port}</stopPort>
-                    <reload>automatic</reload>
-                    <webAppConfig>
-                        <contextPath>/</contextPath>
-                    </webAppConfig>
-                    <connectors>
-                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                            <port>${jetty.port}</port>
-                            <maxIdleTime>60000</maxIdleTime>
-                        </connector>
-                    </connectors>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>stop-jetty</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>stop</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
         </plugins>
     </build>
 
