@@ -25,6 +25,7 @@
         <module>peaceful-boot-web</module>
         <module>peaceful-boot-web-template</module>
         <module>peaceful-spring-boot</module>
+        <module>peaceful-spring-boot-demo</module>
     </modules>
 
 
